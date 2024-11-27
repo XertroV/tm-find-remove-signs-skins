@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GBX.NET" Version="1.2.6" />
-    <PackageReference Include="GBX.NET.Imaging" Version="1.1.3" />
+    <PackageReference Include="GBX.NET" Version="2.0.9" />
+    <PackageReference Include="GBX.NET.Imaging" Version="2.0.1" />
     <PackageReference Include="GBX.NET.Json" Version="0.1.7" />
-    <PackageReference Include="GBX.NET.LZO" Version="1.0.4" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+    <PackageReference Include="GBX.NET.LZO" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

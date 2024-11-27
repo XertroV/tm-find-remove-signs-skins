@@ -90,14 +90,15 @@ internal class ModSigns
         Console.WriteLine("  4. Remove skins matching (URL Contains)");
         Console.WriteLine("  5. Remove skins matching (FileName Exact Match)");
         Console.WriteLine("  6. Remove skins matching (URL Exact Match)");
-        Console.WriteLine("  7. Save Map (and resume)");
-        Console.WriteLine("  8. Save Map (and exit)");
-        Console.WriteLine("  9/q. Exit without saving");
+        // Console.WriteLine("  7. Replace skin matching (URL Exact Match)");
+        Console.WriteLine("  8. Save Map (and resume)");
+        Console.WriteLine("  9. Save Map (and exit)");
+        Console.WriteLine("  0/q. Exit without saving");
         Console.WriteLine("\nPlease make a choice.");
         Console.Write("> ");
         Console.CursorVisible = true;
         var read = Console.ReadLine();
-        if (read == "q" || read == "9") {
+        if (read == "q" || read == "0") {
             logger.LogInformation("Exiting...");
             return false;
         }
@@ -126,14 +127,17 @@ internal class ModSigns
             case 6:
                 RemoveSigns(logger, map, GetPattern(logger), true, true);
                 return true;
-            case 7:
+            // case 7:
+            //     ReplaceSigns(logger, map, GetPattern(logger, "Existing URL (Exact):"), GetPattern(logger, "New URL (Exact):"));
+            //     return true;
+            case 8:
                 SaveMap(logger, map, mapFile);
                 return true;
-            case 8:
+            case 9:
                 SaveMap(logger, map, mapFile);
                 logger.LogInformation("Exiting...");
                 return false;
-            case 9:
+            case 0:
                 logger.LogInformation("Exiting...");
                 return false;
         }
@@ -151,8 +155,13 @@ internal class ModSigns
         logger.LogInformation($"Wrote Output Map File: {outFile}");
     }
 
-    private static string GetPattern(ILogger<ModSigns> logger) {
-        Console.Write("Enter search pattern:\n> ");
+    private static string GetPattern(ILogger<ModSigns> logger, string? prompt = null) {
+        if (prompt == null) {
+            prompt = "Enter search pattern:\n> ";
+        } else {
+            prompt += "\n> ";
+        }
+        Console.Write(prompt);
         var pattern = Console.ReadLine();
         logger.LogInformation($"Search term: {pattern}");
         if (pattern == null) return "";
@@ -251,7 +260,7 @@ internal class ModSigns
 
     static bool PackDescMatches(string? Source, string pattern, bool exactMatch) {
         if (Source == null) return false;
-        if (pattern == "") return true;
+        if (pattern.Trim() == "") return true;
         if (exactMatch) return Source == pattern;
         return Source.Contains(pattern);
     }
@@ -301,6 +310,7 @@ internal class ModSigns
             }
         }
     }
+
 
     static bool NeedsFixingPackDesc(string? FileName) {
         if (FileName == null) return false;
