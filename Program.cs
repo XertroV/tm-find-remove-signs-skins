@@ -62,7 +62,8 @@ internal class ModSigns
         mapFileNoExt = Path.GetFileNameWithoutExtension(mapFileNoExt);
 
 
-        GBX.NET.Lzo.SetLzo(typeof(GBX.NET.LZO.MiniLZO));
+        // GBX.NET.Lzo.SetLzo(typeof(GBX.NET.LZO.MiniLZO));
+        Gbx.LZO = new Lzo();
 
         CGameCtnChallenge map = GameBox.ParseNode<CGameCtnChallenge>(mapFile);
 
